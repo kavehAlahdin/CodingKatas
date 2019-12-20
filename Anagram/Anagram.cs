@@ -35,6 +35,7 @@ public class Anagram{
         CandidateNumber++;
         Console.WriteLine("{0}-{1}",CandidateNumber,CurrentWord);
     }
+    wordList.Close();
 
 
     }
