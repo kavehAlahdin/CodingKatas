@@ -21,7 +21,7 @@ public class Anagram{
     }
     private const string wordListFileName="wordlist.txt";
     public static void Main(){
-    string sourceWord = "abs";
+    string sourceWord = "documenting";
     StreamReader wordList=File.OpenText(wordListFileName);
     int CandidateNumber=0;
     string CurrentWord=string.Empty;
