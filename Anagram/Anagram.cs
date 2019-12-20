@@ -3,23 +3,25 @@ using System.IO;
 using System.Collections.Generic;
 public class Anagram{
     private static bool isSubSetOfSourceWord(string word,string sourceWord){
-          int index=0;
-          foreach(char character in word)
-            {
-                if(word.Length==0)return true;
-                if(!sourceWord.Contains(character.ToString()))
-                    return false;
-                string newSourceWord=sourceWord.Remove(index,1);
-                string newWord=word.Remove(index,1);
-                index++;
-                return isSubSetOfSourceWord(newWord,newSourceWord);
-                
+        int index=0;
+        if(word.Length==0)return true;
+        foreach(char character in word)
+        {
+            if(!sourceWord.Contains(character.ToString()))
+                return false;
+            else{
+
+            string newSourceWord=sourceWord.Remove(index,1);
+            string newWord=word.Remove(index,1);
+            index++;
+            return isSubSetOfSourceWord(newWord,newSourceWord);
             }
+        }
         return true;
     }
     private const string wordListFileName="wordlist.txt";
     public static void Main(){
-    string sourceWord = "documenting";
+    string sourceWord = "abs";
     StreamReader wordList=File.OpenText(wordListFileName);
     int CandidateNumber=0;
     string CurrentWord=string.Empty;
