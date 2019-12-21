@@ -19,13 +19,15 @@ public class Anagram{
         }
         return true;
     }
-    public static KeyValuePair<char,int> countLetters(string word){
-        KeyValuePair<char, int> LetterCountDictionary=new KeyValuePair<char, int>();
-        foreach(char letter in sourceWord)
-            if(!LetterCountDictionary.TryGetValue(letter,out index++))
-                LetterCountDictionary.Add(letter,0);
-            
-        
+    public static Dictionary<char,int>  countLetters(string word){
+        Dictionary<char, int>  LetterCountDictionary=new Dictionary<char, int> ();
+        foreach(char letter in word)
+            {
+            if(!LetterCountDictionary.ContainsKey(char.ToLower(letter)))
+                LetterCountDictionary.Add(letter,1);
+            else
+                LetterCountDictionary[letter]++;
+            }
         return LetterCountDictionary;
     }
     public bool isSubAnagram(string wordTobeCheck,string sourceWord){
@@ -38,7 +40,7 @@ public class Anagram{
         string anagram=string.Empty;
         
 
-        return ;
+        return "hi";
     }
     private const string wordListFileName="wordlist.txt";
     public static void Main(){
@@ -56,7 +58,10 @@ public class Anagram{
         CandidateNumber++;
         //Console.WriteLine("{0}-{1}",CandidateNumber,CurrentWord);
     }
-    Console.WriteLine("Count:\n\t{0}-{1}","word",countLetters("word").;
+    Dictionary<char,int> sourceWordCharacters=countLetters(sourceWord);
+    foreach(KeyValuePair<char,int> LetterCountPair in sourceWordCharacters)
+        
+        //Console.Write("("+LetterCountPair.Key+","+LetterCountPair.Value+")");
 
     wordList.Close();
 
