@@ -2,7 +2,8 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 public class Anagram{
-    private static bool isSubAnagram(Dictionary<char,int> sourceWordDictionary,Dictionary<char,int> wordDictionary){
+    private static bool isSubAnagram(Dictionary<char,int> sourceWordDictionary,
+                                    Dictionary<char,int> wordDictionary){
         foreach(KeyValuePair<char,int> wordLetterCount in wordDictionary){
             if(!sourceWordDictionary.ContainsKey(wordLetterCount.Key)) 
                 return false;
