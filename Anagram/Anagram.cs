@@ -3,19 +3,35 @@ using System.IO;
 using System.Collections.Generic;
 public class Anagram{
     string sourceWord;
-    StreamReader wordList; 
-    Dictionary<string, KeyValuePair<char,int> > wordDictionary;
+    private Dictionary<char,int> sourceWordAnalysis;
+    Dictionary<string, Dictionary<char,int> > wordListDictionary;
+    
     public Anagram(String sourceWord, string dictionaryFileName){
-        if (File.Exists(dictionaryFileName))
-            StreamReader wordList=File.OpenText(wordListFileName);
-
+        //builds a dictionary of the words as key, and for each one list of its characters and the number of their repition as value.
+        using(StreamReader wordListStream=File.OpenText(wordListFileName)){
+            while (wordListStream.Peek() >=0){
+                String currentWord=wordListStream.ReadLine();
+                Dictionary<char,int> wordAnalysis =createUniqueCharacterRepetitionDic(currentWord);
+                wordListDictionary.Add(currentWord,wordAnalysis);
+            }
+        }
+        this.sourceWord=sourceWord;
+        this.sourceWordAnalysis=createUniqueCharacterRepetitionDic(this.sourceWord);
     }
-    private static bool isSubAnagram(Dictionary<char,int> sourceWordDictionary,
-                                    Dictionary<char,int> wordDictionary){
-        foreach(KeyValuePair<char,int> wordLetterCount in wordDictionary){
-            if(!sourceWordDictionary.ContainsKey(wordLetterCount.Key)) 
+    //This methods is where the multiple Anagram are created.As an example If 2-word Anagram is desired, this method would be used  with AnagramWordNumber=2
+    private void createMultiAnagram(int AnagramWordNumber){
+        for(int i=0;i<AnagramWordNumber;i++){
+
+            String anagramWord=findAnagram();
+            
+        }
+    }
+    private bool isAnagram(String targetWord){
+        Dictionary<char,int> targetwordAnalysis=wordListDictionary[targetWord];
+        foreach(KeyValuePair<char,int> LetterCount in targetwordAnalysis){
+            if(!sourceWordAnalysis.ContainsKey(LetterCount.Key)) 
                 return false;
-            if(wordLetterCount.Value>sourceWordDictionary[wordLetterCount.Key]) 
+            if(LetterCount.Value>this.sourceWordAnalysis[LetterCount.Key]) 
                 return false;
         }
         return true;
@@ -38,18 +54,16 @@ public class Anagram{
     private Dictionary<string , string> resultTwoWordAnagram;
  
     static  int counter=0;
-    private string findAnagram(Dictionary<char,int> sourceWordDic,List<string> wordList){
-        string  firstWord=string.Empty;
-        string secondWord=string.Empty;
-        foreach(string currentWord in wordList){
-            Dictionary<char,int> currentWordDic=createUniqueCharacterRepetitionDic(currentWord);
-            if(isSubAnagram(currentWordDic,sourceWordDic))
-                firstWord=currentWord;
+    private string findAnagram(){
+        string  resultWord=string.Empty;        
+        foreach(KeyValuePair<char,int> currentWord in wordListDictionary){
+            if(isAnagram(currentWord.Key))
+                resultWord=currentWord;
         }
         //Dictionary<char,int> differenceDic=createDifferenceDictionary(currentWord,sourceWordDic);
         //secondWord=findAnagram(differenceDic,wordList);
         //if(secondWord==null ||secondWord.Length==0) continue;                    
-        return firstWord+","+secondWord;
+        return " ";
     }
     private const string wordListFileName="wordlist.txt";
 
