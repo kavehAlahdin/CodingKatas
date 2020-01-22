@@ -2,6 +2,14 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 public class Anagram{
+    string sourceWord;
+    StreamReader wordList; 
+    Dictionary<string, KeyValuePair<char,int> > wordDictionary;
+    public Anagram(String sourceWord, string dictionaryFileName){
+        if (File.Exists(dictionaryFileName))
+            StreamReader wordList=File.OpenText(wordListFileName);
+
+    }
     private static bool isSubAnagram(Dictionary<char,int> sourceWordDictionary,
                                     Dictionary<char,int> wordDictionary){
         foreach(KeyValuePair<char,int> wordLetterCount in wordDictionary){
@@ -14,7 +22,7 @@ public class Anagram{
     }
     private Dictionary<char,int> createDifferenceDictionary(Dictionary<char,int> wordDic,Dictionary<char,int> sourceWordDic){
         Dictionary<char,int> differenceDic=new Dictionary<char, int>();
-        foreach(KeyValuePair letterPair in wordDic)
+        foreach(KeyValuePair<char,int> letterPair in wordDic)
             sourceWordDic[letterPair.Key]-=letterPair.Value;
         return differenceDic;
     }
@@ -35,29 +43,15 @@ public class Anagram{
         string secondWord=string.Empty;
         foreach(string currentWord in wordList){
             Dictionary<char,int> currentWordDic=createUniqueCharacterRepetitionDic(currentWord);
-            if(isSubAnagram(currentWordDic,sourceWordDicceWord))
+            if(isSubAnagram(currentWordDic,sourceWordDic))
                 firstWord=currentWord;
         }
-        Dictionary<char,int> differenceDic=createDifferenceDictionary(currentWordDic,sourceWordDic);
-        secondWord=findAnagram(differenceDic,wordList);
-        if(secondWord==0 ||secondWord.Length==0) continue;                    
+        //Dictionary<char,int> differenceDic=createDifferenceDictionary(currentWord,sourceWordDic);
+        //secondWord=findAnagram(differenceDic,wordList);
+        //if(secondWord==null ||secondWord.Length==0) continue;                    
         return firstWord+","+secondWord;
     }
     private const string wordListFileName="wordlist.txt";
-    public static void Main(){
-    string sourceWord = "documenting";
-    StreamReader wordList=File.OpenText(wordListFileName);
-    int CandidateNumber=0;
-    string CurrentWord=string.Empty;
-    List<string> wordCandidateList=new List<string>();
-    string word1=string.Empty;
-    string word2=string.Empty;
-    while((CurrentWord= wordList.ReadLine())!=null){
-        CandidateNumber++;
-        Console.WriteLine("{0}-{1}",CandidateNumber,CurrentWord);
-    }
-    wordList.Close();
 
-
-    }
+ 
 }
