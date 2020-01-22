@@ -15,9 +15,15 @@ public class Program{
     List<string> wordCandidateList=new List<string>();
     string word1=string.Empty;
     string word2=string.Empty;
+    Anagram anagram= new Anagram(sourceWord,wordListFileName);
+    List <String >a= anagram.findAnagram();
+    foreach(var pair in a){
+        Console.WriteLine(pair+"---");
+        
+    }
     while((CurrentWord= wordList.ReadLine())!=null){
         CandidateNumber++;
-        Console.WriteLine("{0}-{1}",CandidateNumber,CurrentWord);
+        //äConsole.WriteLine("{0}-{1}",CandidateNumber,CurrentWord);
     }
     wordList.Close();
 
