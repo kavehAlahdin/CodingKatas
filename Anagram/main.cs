@@ -16,9 +16,11 @@ public class Program{
     string word1=string.Empty;
     string word2=string.Empty;
     Anagram anagram= new Anagram(sourceWord,wordListFileName);
+    
     List <String >a= anagram.findAnagram();
+
     foreach(var pair in a){
-        Console.WriteLine(pair+"---");
+        Console.WriteLine(pair+"---"+Anagram.createStrFromDic(anagram.sourceWordAnalysis));
         
     }
     while((CurrentWord= wordList.ReadLine())!=null){
